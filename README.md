@@ -3,7 +3,7 @@
 
 ## Introduction
 
-Nube serves as a wrapper for the different AWS serivces the erlcloud
+Nube serves as a wrapper for the different AWS services the erlcloud
 Erlang library supports with some extra macros to make your life
 easier.
 
