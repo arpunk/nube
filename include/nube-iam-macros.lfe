@@ -1,0 +1,21 @@
+(eval-when-compile
+  (defun get-api-funcs ()
+    '((get-user 0) (get-user 1) (get-user 2)
+      (list-users 0) (list-users 1) (list-users 2)
+      (list-groups-for-user 1) (list-groups-for-user 2)
+      (list-user-policies 1) (list-user-policies 2)
+      (get-user-policy 2) (get-user-policy 3)
+      (get-login-profile 1) (get-login-profile 2)
+      (list-groups 0) (list-groups 1) (list-groups 2)
+      (list-group-policies 1) (list-group-policies 2)
+      (get-group-policy 2) (get-group-policy 3)
+      (list-roles 0) (list-roles 1) (list-roles 2)
+      (list-role-policies 1) (list-role-policies 2)
+      (get-role-policy 2) (get-role-policy 3)
+      (list-instance-profiles 1) (list-instance-profiles 2)
+      (get-account-password-policy 0) (get-account-password-policy 1))))
+
+(defmacro generate-api ()
+  `(progn ,@(kla:make-funcs (get-api-funcs) 'erlcloud_iam)))
+
+(generate-api)
