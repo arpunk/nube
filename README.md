@@ -75,6 +75,20 @@ Or you can just create the credentials:
       (nube-ec2:describe-images credentials))
 ```
 
+### More advanced
+
+```lisp
+(let* ((instance-spec (make-ec2_instance_spec image_id "ami"
+                                              key_name "keypair"
+                                              instance_type "t2.micro"
+                                              availability_zone "us-east-1c"))
+       (instance (nube-ec2:run-instances instance-spec))
+    (lfe_io:format "Instance: ~p~n" (list instance))))
+```
+
+You can use pretty much everything from the erlcloud library, just
+with a lispy syntax.
+
 ## License
 
 MIT
