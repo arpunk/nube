@@ -1,3 +1,5 @@
+(include-lib "erlcloud/include/erlcloud_mon.hrl")
+
 (eval-when-compile
   (defun get-api-funcs ()
     '((list-metrics 4)

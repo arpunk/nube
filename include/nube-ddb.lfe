@@ -1,3 +1,5 @@
+(include-lib "erlcloud/include/erlcloud_ddb.hrl")
+
 (eval-when-compile
   (defun get-api-funcs ()
     '((batch-get-item 1) (batch-get-item 2) (batch-get-item 3)

@@ -1,7 +1,7 @@
 (defmodule nube-mon
   (export all))
 
-(include-lib "nube/include/nube-mon-macros.lfe")
+(include-lib "nube/include/nube-mon.lfe")
 
 (defun noop ()
   'noop)

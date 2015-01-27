@@ -1,7 +1,7 @@
 (defmodule nube-ddb
   (export all))
 
-(include-lib "nube/include/nube-ddb-macros.lfe")
+(include-lib "nube/include/nube-ddb.lfe")
 
 (defun noop ()
   'noop)

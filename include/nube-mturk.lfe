@@ -1,3 +1,5 @@
+(include-lib "erlcloud/include/erlcloud_mturk.hrl")
+
 (eval-when-compile
   (defun get-api-funcs ()
     '((approve-assignment 2) (approve-assignment 3)

@@ -1,3 +1,5 @@
+(include-lib "erlcloud/include/erlcloud_ec2.hrl")
+
 (eval-when-compile
   (defun get-api-funcs ()
     '(
@@ -141,3 +143,6 @@
   `(progn ,@(kla:make-funcs (get-api-funcs) 'erlcloud_ec2)))
 
 (generate-api)
+
+(defun loaded ()
+  'loaded)
