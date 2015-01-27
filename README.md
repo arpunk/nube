@@ -7,14 +7,15 @@ Nube serves as a wrapper for the different AWS services the erlcloud
 Erlang library supports with some extra macros to make your life
 easier.
 
+## Installation
+
 As we depend on some fixes that are only available in LFE development
 branch, we need to use latest lfetool in order to compile nube. The
 `dev-1` branch of lfetool uses lcfg which we also use to overwrite the
-LFE version.
+LFE version. Make sure you are using the lfetool `1.5.0-dev` upwards.
 
-## Installation
-
-Just add it to your ``rebar.config`` deps:
+To install and use the library just add it to your ``rebar.config``
+deps:
 
 ```erlang
   {deps, [
@@ -24,7 +25,7 @@ Just add it to your ``rebar.config`` deps:
       ]}.
 ```
 
-And then get and compile the dependencies:
+Then get and compile the dependencies:
 
 ```bash
     $ lfetool download deps
@@ -50,6 +51,8 @@ And then get and compile the dependencies:
 * DynamoDB
 
 ## Usage
+
+### Quickstart
 
 Make sure you have exported your AWS credentials:
 
