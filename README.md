@@ -7,6 +7,11 @@ Nube serves as a wrapper for the different AWS services the erlcloud
 Erlang library supports with some extra macros to make your life
 easier.
 
+As we depend on some fixes that are only available in LFE development
+branch, we need to use latest lfetool in order to compile nube. The
+`dev-1` branch of lfetool uses lcfg which we also use to overwrite the
+LFE version.
+
 ## Installation
 
 Just add it to your ``rebar.config`` deps:
@@ -22,7 +27,7 @@ Just add it to your ``rebar.config`` deps:
 And then get and compile the dependencies:
 
 ```bash
-    $ rebar get-deps
+    $ lfetool download deps
     $ rebar compile
 ```
 
@@ -66,9 +71,8 @@ Then fire up a `repl`:
 Or you can just create the credentials:
 
 ```lisp
-(let ((credentials (nube-util:make-crendentials "access key" "secret access key")))
- (nube-ec2:describe-images credentials))
-
+    (let ((credentials (nube-util:make-crendentials "access key" "secret access key")))
+      (nube-ec2:describe-images credentials))
 ```
 
 ## License
