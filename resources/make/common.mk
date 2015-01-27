@@ -95,46 +95,43 @@ shell-no-deps: compile-no-deps
 clean: clean-ebin clean-eunit
 	@which rebar.cmd >/dev/null 2>&1 && rebar.cmd clean || rebar clean
 
-check-unit-only:
+check-unit-only: clean-eunit
 	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) tests unit
 
-check-integration-only:
+check-integration-only: clean-eunit
 	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) tests integration
 
-check-system-only:
+check-system-only: clean-eunit
 	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) tests system
 
+check-runner-eunit: compile-no-deps compile-tests
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) \
+	erl -cwd "`pwd`" -listener eunit_progress -eval \
+	"case 'ltest-runner':all() of ok -> halt(0); _ -> halt(127) end" \
+	-noshell
+
+check-runner-ltest: compile-no-deps compile-tests
+	@clear
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) \
+	erl -cwd "`pwd`" -listener ltest-listener -eval \
+	"case 'ltest-runner':all() of ok -> halt(0); _ -> halt(127) end" \
+	-noshell
+
+check-travis: compile compile-tests check-unit-only
+
 check-unit-with-deps: get-deps compile compile-tests check-unit-only
-check-unit: clean-eunit compile-no-deps check-unit-only
-check-integration: clean-eunit compile check-integration-only
-check-system: clean-eunit compile check-system-only
-check-all-with-deps: clean-eunit compile check-unit-only \
-	check-integration-only check-system-only clean-eunit
-check-all: get-deps clean-eunit compile-no-deps
+check-unit: compile-no-deps check-unit-only
+check-integration: compile check-integration-only
+check-system: compile check-system-only
+check-all-with-deps: compile check-unit-only \
+	check-integration-only check-system-only
+check-all: get-deps compile-no-deps clean-eunit
 	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) tests all
 
 check: check-unit-with-deps
 
 check-travis: $(LFETOOL) check
 
-push-all:
-	@echo "Pusing code to github ..."
-	git push --all
-	git push upstream --all
-	git push --tags
-	git push upstream --tags
-
 install: compile
 	@echo "Installing nube ..."
 	@PATH=$(SCRIPT_PATH) lfetool install lfe
-
-upload: $(EXPM) get-version
-	@echo "Preparing to upload nube ..."
-	@echo
-	@echo "Package file:"
-	@echo
-	@cat package.exs
-	@echo
-	@echo "Continue with upload? "
-	@read
-	$(EXPM) publish
