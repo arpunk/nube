@@ -30,7 +30,7 @@ $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
 get-lfetool: $(BIN_DIR)
-	curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/stable/lfetool && \
+	curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/dev-v1/lfetool && \
 	chmod 755 ./lfetool && \
 	mv ./lfetool $(BIN_DIR)
 
@@ -47,8 +47,7 @@ $(EXPM): $(BIN_DIR)
 
 get-deps:
 	@echo "Getting dependencies ..."
-	@which rebar.cmd >/dev/null 2>&1 && rebar.cmd get-deps || rebar get-deps
-	@PATH=$(SCRIPT_PATH) $(LFETOOL) update deps
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) download deps
 
 clean-ebin:
 	@echo "Cleaning ebin dir ..."
