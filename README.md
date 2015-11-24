@@ -9,32 +9,24 @@ easier.
 
 ## Installation
 
-As we depend on some fixes that are only available in LFE development
-branch, we need to use latest lfetool in order to compile nube. The
-`dev-1` branch of lfetool uses lcfg which we also use to overwrite the
-LFE version. Make sure you are using the lfetool `1.5.0-dev` upwards.
-
 To install and use the library just add it to your ``rebar.config``
 deps:
 
 ```erlang
   {deps, [
-    ...
-    {nube, ".*",
-      {git, "git@github.com:arpunk/nube.git", "master"}}
-      ]}.
+    {nube, {git, "git@github.com:arpunk/nube.git", {branch, "master"}}}
+  ]}.
 ```
 
 Then get and compile the dependencies:
 
 ```bash
-    $ lfetool download deps
-    $ rebar compile
+    $ rebar3 compile
 ```
 
 ## Documentation
 
-## Supported AWS services
+### Supported AWS services
 * EC2
 * ELB
 * S3
@@ -50,9 +42,9 @@ Then get and compile the dependencies:
 * CloudWatch
 * DynamoDB
 
-## Usage
+### Usage
 
-### Quickstart
+#### Quickstart
 
 Make sure you have exported your AWS credentials:
 
@@ -64,7 +56,7 @@ Make sure you have exported your AWS credentials:
 Then fire up a `repl`:
 
 ```bash
-    $ make repl-no-deps
+    $ rebar3 lfe repl
     ...
     > (nube:start)
     ok
@@ -74,7 +66,8 @@ Then fire up a `repl`:
 Or you can just create the credentials:
 
 ```lisp
-    (let ((credentials (nube-util:make-crendentials "access key" "secret access key")))
+    (let ((credentials (nube-util:make-crendentials "access key"
+                                                    "secret access key")))
       (nube-ec2:describe-images credentials))
 ```
 
@@ -88,9 +81,6 @@ Or you can just create the credentials:
        (instance (nube-ec2:run-instances instance-spec))
     (lfe_io:format "Instance: ~p~n" (list instance))))
 ```
-
-You can use pretty much everything from the erlcloud library, just
-with a lispy syntax.
 
 ## License
 
